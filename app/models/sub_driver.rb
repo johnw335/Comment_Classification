@@ -1,0 +1,2 @@
+class SubDriver < ApplicationRecord
+end

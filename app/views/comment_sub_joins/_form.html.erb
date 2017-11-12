@@ -1,0 +1,17 @@
+<%= form_for(comment_sub_join) do |f| %>
+  <% if comment_sub_join.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(comment_sub_join.errors.count, "error") %> prohibited this comment_sub_join from being saved:</h2>
+
+      <ul>
+      <% comment_sub_join.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

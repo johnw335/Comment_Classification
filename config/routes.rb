@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :words
+  resources :comment_sub_joins
+  resources :sub_drivers
+  resources :comment_word_joins
+  resources :companies
+  resources :teams
+  resources :comments
+  resources :drivers
   get 'welcome/index'
   root 'welcome#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

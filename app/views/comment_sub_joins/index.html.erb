@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Comment Sub Joins</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @comment_sub_joins.each do |comment_sub_join| %>
+      <tr>
+        <td><%= link_to 'Show', comment_sub_join %></td>
+        <td><%= link_to 'Edit', edit_comment_sub_join_path(comment_sub_join) %></td>
+        <td><%= link_to 'Destroy', comment_sub_join, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Comment Sub Join', new_comment_sub_join_path %>
