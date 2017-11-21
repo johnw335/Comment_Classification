@@ -12,6 +12,11 @@
   <tbody>
     <% @comments.each do |comment| %>
       <tr>
+        <td><%=comment.comment_text%></td>
+        <td><%=comment.driver.name%></td>
+        <td><%=comment.team.company.name%></td>
+
+
         <td><%= link_to 'Show', comment %></td>
         <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
         <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -19,7 +24,14 @@
     <% end %>
   </tbody>
 </table>
+<h1>Top Comment Driver <%=@first_comment_driver_name%></h1>
+<h1>Sub-Drivers </h1>
+  <%=@subs_by_driver.each do |sub|%>
+    <tr>
+      <td><%=sub.name%></td>
+    </tr>
+  <% end %>
 
 <br>
-
+<%= link_to 'Home', '/' %>
 <%= link_to 'New Comment', new_comment_path %>

@@ -5,6 +5,14 @@ class CommentsController < ApplicationController
   # GET /comments.json
   def index
     @comments = Comment.all
+    @first_comment_driver = Comment.first.driver
+    @first_comment_driver_name = Comment.first.driver.name
+
+    @selected_driver_subs_name = []
+    @subs_by_driver = SubDriver.where(driver: @first_comment_driver)
+    puts @subs_by_driver.count
+
+
   end
 
   # GET /comments/1
