@@ -11,10 +11,18 @@
 
   <tbody>
     <% @comments.each do |comment| %>
+      <%@comment_subs = SubDriver.where(driver: comment.driver)%>
       <tr>
         <td><%=comment.comment_text%></td>
         <td><%=comment.driver.name%></td>
         <td><%=comment.team.company.name%></td>
+
+        <td>
+          <%=@comment_subs.each do |sub|%>
+          <%= check_box_tag(:sub_driver) %>
+          <%=label_tag(:sub, sub.name)%>
+          <%end%>
+        </td>
 
 
         <td><%= link_to 'Show', comment %></td>
