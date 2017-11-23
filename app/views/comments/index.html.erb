@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Comments</h1>
-
+<h1>Comments:</h1>
+<br>
 <table>
   <thead>
     <tr>
@@ -9,28 +9,25 @@
     </tr>
   </thead>
 
-  <tbody>
-    <% @comments.each do |comment| %>
-      <%@comment_subs = SubDriver.where(driver: comment.driver)%>
-      <tr>
-        <td><%=comment.comment_text%></td>
-        <td><%=comment.driver.name%></td>
-        <td><%=comment.team.company.name%></td>
-
-        <td>
-          <%=@comment_subs.each do |sub|%>
-          <%= check_box_tag(:sub_driver) %>
-          <%=label_tag(:sub, sub.name)%>
-          <%end%>
-        </td>
+  <h2><%=@first_comment.comment_text%></h2>
+    <tr>
+      <td>Driver: <%=@first_comment.driver.name%></td>
+      <td>Company: <%=@first_comment.team.company.name%></td>
+    </tr>
 
 
-        <td><%= link_to 'Show', comment %></td>
-        <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
-        <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <%= form_tag('comment_sub_joins', method: "post") do %>
+      <%@related_subs.each do |sub|%>
+        <%= check_box_tag(:sub_driver) %>
+        <%=label_tag(:sub, sub.name)%>
+      <%end%>
+        <%= check_box_tag(:sub_driver) %>
+        <%=label_tag(:sub, 'Other')%>
+      <%= label_tag(:q, "Search for:") %>
+      <%= text_field_tag(:q) %>
+      <%= submit_tag("Tag Sub Drivers") %>
     <% end %>
-  </tbody>
+
 </table>
 <h1>Top Comment Driver <%=@first_comment_driver_name%></h1>
 <h1>Sub-Drivers </h1>
