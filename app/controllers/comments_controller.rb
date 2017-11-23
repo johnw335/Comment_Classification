@@ -4,17 +4,23 @@ class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.json
   def index
-    @comments = Comment.all
-    @first_comment_driver = Comment.first.driver
-    @first_comment_driver_name = Comment.first.driver.name
+    @comments = Comment.where(tagged: false)
+    @first_comment = @comments.first
+    @first_comment_driver = @first_comment.driver
+    @first_comment_driver_name = @first_comment.driver.name
+    @related_subs = SubDriver.where(driver: @first_comment_driver)
 
     @selected_driver_subs_name = []
     @subs_by_driver = SubDriver.where(driver: @first_comment_driver)
-    puts @subs_by_driver.count
+
 
 
   end
 
+
+  def tag_comment
+    puts "I made it to tag comment"
+  end
   # GET /comments/1
   # GET /comments/1.json
   def show

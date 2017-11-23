@@ -24,18 +24,20 @@ class CommentSubJoinsController < ApplicationController
   # POST /comment_sub_joins
   # POST /comment_sub_joins.json
   def create
-    @comment_sub_join = CommentSubJoin.new(comment_sub_join_params)
+    # @comment_sub_join = CommentSubJoin.new(comment_sub_join_params)
 
-    respond_to do |format|
-      if @comment_sub_join.save
-        format.html { redirect_to @comment_sub_join, notice: 'Comment sub join was successfully created.' }
-        format.json { render :show, status: :created, location: @comment_sub_join }
-      else
-        format.html { render :new }
-        format.json { render json: @comment_sub_join.errors, status: :unprocessable_entity }
-      end
-    end
+    # respond_to do |format|
+    #   if @comment_sub_join.save
+    #     format.html { redirect_to @comment_sub_join, notice: 'Comment sub join was successfully created.' }
+    #     format.json { render :show, status: :created, location: @comment_sub_join }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @comment_sub_join.errors, status: :unprocessable_entity }
+    #   end
+    # end
+    puts params
   end
+
 
   # PATCH/PUT /comment_sub_joins/1
   # PATCH/PUT /comment_sub_joins/1.json
