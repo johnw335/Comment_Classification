@@ -18,17 +18,18 @@
 
     <%= form_tag('comment_sub_joins', method: "post") do %>
       <%@related_subs.each do |sub|%>
-        <%= check_box_tag(:sub_driver) %>
-        <%=label_tag(:sub, sub.name)%>
+        <%= check_box_tag(sub.name) %>
+        <%=label_tag(:q, sub.name)%>
       <%end%>
-        <%= check_box_tag(:sub_driver) %>
-        <%=label_tag(:sub, 'Other')%>
-      <%= label_tag(:q, "Search for:") %>
-      <%= text_field_tag(:q) %>
+        <%= check_box_tag(:other) %>
+        <%=label_tag(:q, 'Other')%>
+        <%= hidden_field_tag :comment, @first_comment.id %>
       <%= submit_tag("Tag Sub Drivers") %>
     <% end %>
 
 </table>
+
+
 <h1>Top Comment Driver <%=@first_comment_driver_name%></h1>
 <h1>Sub-Drivers </h1>
   <%=@subs_by_driver.each do |sub|%>

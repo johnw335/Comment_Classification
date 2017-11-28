@@ -24,7 +24,24 @@ class CommentSubJoinsController < ApplicationController
   # POST /comment_sub_joins
   # POST /comment_sub_joins.json
   def create
-    # @comment_sub_join = CommentSubJoin.new(comment_sub_join_params)
+
+    @comment_sub_join = CommentSubJoin.new(comment_sub_join_params)
+    @comment_id = params[:comment]
+    @comment = Comment.find(@comment_id)
+
+    @sub_list = params.select{|key, hash| hash == "1" }
+    puts @sub_list
+    @sub_list_cleaned = @sub_list.delete_if {|key, value| key >= "comment" }
+    # puts @sub_list_cleaned
+
+    @sub_list_cleaned.each {|key, value|
+      @sub = SubDriver.find_by(name: "#{key}")
+      puts @sub.name
+      #create the new join here
+    }
+
+
+
 
     # respond_to do |format|
     #   if @comment_sub_join.save
@@ -35,7 +52,7 @@ class CommentSubJoinsController < ApplicationController
     #     format.json { render json: @comment_sub_join.errors, status: :unprocessable_entity }
     #   end
     # end
-    puts params
+
   end
 
 
