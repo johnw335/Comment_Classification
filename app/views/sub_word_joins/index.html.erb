@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Sub Word Joins</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sub_word_joins.each do |sub_word_join| %>
+      <tr>
+        <td><%= link_to 'Show', sub_word_join %></td>
+        <td><%= link_to 'Edit', edit_sub_word_join_path(sub_word_join) %></td>
+        <td><%= link_to 'Destroy', sub_word_join, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sub Word Join', new_sub_word_join_path %>

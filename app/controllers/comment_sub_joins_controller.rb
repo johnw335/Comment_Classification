@@ -28,7 +28,15 @@ class CommentSubJoinsController < ApplicationController
     @comment_sub_join = CommentSubJoin.new(comment_sub_join_params)
     @comment_id = params[:comment]
     @comment = Comment.find(@comment_id)
-
+    @words_array = @comment.comment_text.to_s.split(/\W+/)
+    @words_array.each do |word|
+      if Word.find_by(name: word)
+        puts "word was found"
+      else
+        Word.create!(name: word)
+      end
+    end
+    puts "finished word create loop"
     @sub_list = params.select{|key, hash| hash == "1" }
     puts @sub_list
     @sub_list_cleaned = @sub_list.delete_if {|key, value| key >= "comment" }
@@ -36,7 +44,10 @@ class CommentSubJoinsController < ApplicationController
 
     @sub_list_cleaned.each {|key, value|
       @sub = SubDriver.find_by(name: "#{key}")
-      puts @sub.name
+      puts '***************'
+      @comment_sub_join = CommentSubJoin.new(comment: @comment, sub_driver: @sub)
+      @comment_sub_join.save
+      puts "I am saving"
       #create the new join here
     }
 

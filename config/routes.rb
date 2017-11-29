@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :sub_word_joins
   resources :words
   resources :comment_sub_joins
   resources :comment_word_joins

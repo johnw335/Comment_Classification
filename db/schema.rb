@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171112231751) do
+ActiveRecord::Schema.define(version: 20171129205925) do
 
   create_table "comment_sub_joins", force: :cascade do |t|
     t.integer  "sub_driver_id"
@@ -59,6 +59,15 @@ ActiveRecord::Schema.define(version: 20171112231751) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["driver_id"], name: "index_sub_drivers_on_driver_id"
+  end
+
+  create_table "sub_word_joins", force: :cascade do |t|
+    t.integer  "word_id"
+    t.integer  "sub_driver_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["sub_driver_id"], name: "index_sub_word_joins_on_sub_driver_id"
+    t.index ["word_id"], name: "index_sub_word_joins_on_word_id"
   end
 
   create_table "teams", force: :cascade do |t|

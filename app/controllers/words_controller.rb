@@ -24,6 +24,9 @@ class WordsController < ApplicationController
   # POST /words
   # POST /words.json
   def create
+    puts "I made it to word create"
+    puts word_params
+    puts "______________________"
     @word = Word.new(word_params)
 
     respond_to do |format|

@@ -1,0 +1,2 @@
+module SubWordJoinsHelper
+end
