@@ -12,6 +12,8 @@
   <tbody>
     <% @sub_word_joins.each do |sub_word_join| %>
       <tr>
+        <td>Word: <%=sub_word_join.word.name %></td>
+        <td>Sub-Driver: <%=sub_word_join.sub_driver.name %></td>
         <td><%= link_to 'Show', sub_word_join %></td>
         <td><%= link_to 'Edit', edit_sub_word_join_path(sub_word_join) %></td>
         <td><%= link_to 'Destroy', sub_word_join, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -21,5 +23,5 @@
 </table>
 
 <br>
-
+<%= link_to 'Home', '/' %>
 <%= link_to 'New Sub Word Join', new_sub_word_join_path %>

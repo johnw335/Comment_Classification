@@ -1,0 +1,14 @@
+<h1>Dashboard</h1>
+<table>
+  <h2>Sub-Drivers to Drivers</h2>
+  <%@drivers.each do |driver|%>
+    <tr>
+      <td>Driver Name: <%=driver.name%> </td>
+      <td><%=driver.list_subs%> </td>
+    </tr>
+  <%end%>
+</table>
+
+
+<%= link_to 'Home', '/' %>
+<%= link_to 'New Comment Sub Join', new_comment_sub_join_path %>

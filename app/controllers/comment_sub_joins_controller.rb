@@ -48,9 +48,14 @@ class CommentSubJoinsController < ApplicationController
       @comment_sub_join = CommentSubJoin.new(comment: @comment, sub_driver: @sub)
       @comment_sub_join.save
       puts "I am saving"
+      @words_array.each do |word|
+        @selected_word = Word.find_by(name: word)
+        SubWordJoin.create!(sub_driver: @sub, word: @selected_word )
+      end
       #create the new join here
     }
-
+    @comment.update_attribute(:tagged, true)
+    redirect_to comments_path
 
 
 

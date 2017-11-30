@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :companies
   resources :teams
   resources :comments
+  resources :dashboard
   resources :drivers do
     resources :sub_drivers
   end
