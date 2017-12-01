@@ -12,6 +12,9 @@
   <tbody>
     <% @sub_drivers.each do |sub_driver| %>
       <tr>
+        <td><%=sub_driver.name %></td>
+        <td><%=sub_driver.driver.name %></td>
+        <td><%=sub_driver.top_five_words %></td>
         <td><%= link_to 'Show', sub_driver %></td>
         <td><%= link_to 'Edit', edit_sub_driver_path(sub_driver) %></td>
         <td><%= link_to 'Destroy', sub_driver, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -21,5 +24,5 @@
 </table>
 
 <br>
-
+<%= link_to 'Home', '/' %>
 <%= link_to 'New Sub Driver', new_sub_driver_path %>
