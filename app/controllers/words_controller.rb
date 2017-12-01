@@ -19,6 +19,10 @@ class WordsController < ApplicationController
 
   # GET /words/1/edit
   def edit
+    @word = Word.find(params[:id])
+    @word.ignored = true
+    @word.save
+
   end
 
   # POST /words

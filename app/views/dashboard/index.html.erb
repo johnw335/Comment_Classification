@@ -4,7 +4,9 @@
   <%@drivers.each do |driver|%>
     <tr>
       <td>Driver Name: <%=driver.name%> </td>
-      <td><%=driver.list_subs%> </td>
+      <td><%=driver.list_subs[0][0]%> </td>
+      <td><%=driver.list_subs[0][1]%></td>
+      <td>Total Tags: <%=driver.list_subs[1]%></td>
     </tr>
   <%end%>
 </table>

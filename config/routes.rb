@@ -7,9 +7,9 @@ Rails.application.routes.draw do
   resources :teams
   resources :comments
   resources :dashboard
-  resources :drivers do
-    resources :sub_drivers
-  end
+  resources :drivers
+  resources :sub_drivers
+
 
   get 'welcome/index'
   root 'welcome#index'

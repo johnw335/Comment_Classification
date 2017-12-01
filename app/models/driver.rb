@@ -7,11 +7,19 @@ class Driver < ApplicationRecord
     @sub_list =[]
     @sub_count = 0
     @sub.each do |i|
-      @sub_list << i.name
       @sub_count += CommentSubJoin.where(sub_driver: i).count
     end
-    puts @sub_count
-    return @sub_list
+
+    @sub.each do |i|
+      @each_sub = []
+      @each_sub << i.name
+      @each_sub_count =CommentSubJoin.where(sub_driver: i).count
+      @each_sub << @each_sub_count.to_f / @sub_count.to_f
+      @sub_list << @each_sub
+    end
+
+    # puts @sub_count
+    return @sub_list, @sub_count
   end
 
 end
