@@ -1,4 +1,34 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_word_path(@word) %> |
+
+<%@subs = @word.subs%>
+<%@subs.each do |sub|%>
+<p>
+  <%=sub%>
+</p>
+<%end%>
+<br>
+
+<%@subs = @word.percentage_each_sub%>
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @subs.each do |sub| %>
+      <tr>
+        <td><%=sub[0]%></td>
+        <td><%=sub[1]%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+
+<%= link_to 'Home', '/' %>
 <%= link_to 'Back', words_path %>

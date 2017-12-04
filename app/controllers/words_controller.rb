@@ -4,12 +4,14 @@ class WordsController < ApplicationController
   # GET /words
   # GET /words.json
   def index
-    @words = Word.all
+    @words = Word.where(ignored: false)
+    # @words = Word.all
   end
 
   # GET /words/1
   # GET /words/1.json
   def show
+    @word = Word.find(params[:id])
   end
 
   # GET /words/new
@@ -22,7 +24,7 @@ class WordsController < ApplicationController
     @word = Word.find(params[:id])
     @word.ignored = true
     @word.save
-
+    redirect_to words_path
   end
 
   # POST /words
