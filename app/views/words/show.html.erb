@@ -21,7 +21,7 @@
     <% @subs.each do |sub| %>
       <tr>
         <td><%=sub[0]%></td>
-        <td><%=sub[1]%></td>
+        <td><%=sub[1].round(2)%> % </td>
       </tr>
     <% end %>
   </tbody>

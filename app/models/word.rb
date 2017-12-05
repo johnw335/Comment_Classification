@@ -24,7 +24,11 @@ class Word < ApplicationRecord
     @sub_names.each do |sub|
       counts[sub] += 1
     end
+    @sum = counts.values.map.reduce(:+).to_f
+    puts @sum
+    a_new_hash = counts.inject({}) { |h, (k, v)| h[k] = (v / @sum)*100; h }
 
-    return counts
+    # return counts
+    return a_new_hash
   end
 end
