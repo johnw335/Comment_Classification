@@ -17,9 +17,9 @@ class Driver < ApplicationRecord
       @each_sub << @each_sub_count.to_f / @sub_count.to_f
       @sub_list << @each_sub
     end
-
+    @sub_sorted = @sub_list.sort_by {|_key, value| value}.reverse.first(5)
     # puts @sub_count
-    return @sub_list, @sub_count
+    return @sub_sorted, @sub_count
   end
 
 end

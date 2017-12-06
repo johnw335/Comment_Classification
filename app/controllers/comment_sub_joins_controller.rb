@@ -24,8 +24,10 @@ class CommentSubJoinsController < ApplicationController
   # POST /comment_sub_joins
   # POST /comment_sub_joins.json
   def create
-
+    puts "I made it to commentsubjoin create!"
     @comment_sub_join = CommentSubJoin.new(comment_sub_join_params)
+    puts "*******************"
+    puts params[:comment]
     @comment_id = params[:comment]
     @comment = Comment.find(@comment_id)
     @words_array = @comment.comment_text.to_s.split(/\W+/)
