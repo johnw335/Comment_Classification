@@ -60,20 +60,38 @@ csv_text = File.read(Rails.root.join('lib', 'seeds', 'Balance_seed.csv'))
 # puts csv_text
 
 csv = CSV.parse(csv_text, :headers => false, :encoding => 'ISO-8859-1')
+@count = 0
 csv.each do |row|
 
   subs = row[1].split(',')
 
-  @comment = Comment.create!(comment_text: row[0] ,driver: work_life ,team: t1c0 )
+  @comment = Comment.create!(comment_text: row[0] ,driver: work_life, team: t0c0 )
+
+  @words_array = row[0].split(/\W+/)
+    @words_array.each do |word|
+      if Word.find_by(name: word)
+        puts "word was found"
+      else
+        Word.create!(name: word)
+      end
+    end
+
   subs.each do |i|
-    @new_sub = SubDriver.find_by(name: i)
+    @new_sub = SubDriver.find_by(name: i.downcase.strip)
     if @new_sub == nil
-      @sub_driver = SubDriver.create!(name: i, driver: work_life)
-      CommentSubJoin.create!(comment: @comment, sub_driver: @sub_driver)
+      @sub_driver = SubDriver.create!(name: i.downcase.strip, driver: work_life)
+       @new_join = CommentSubJoin.create!(comment: @comment, sub_driver: @sub_driver)
+      puts 'I made a new comment sub join with'
+      puts @comment
+      puts @sub_driver
+      @count += 1
     else
       CommentSubJoin.create!(comment: @comment, sub_driver: @new_sub)
+      @count+= 1
     end
+
   end
 
 
 end
+puts @count

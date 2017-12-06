@@ -2,10 +2,14 @@
 <table>
   <h2>Sub-Drivers to Drivers</h2>
   <%@drivers.each do |driver|%>
+    <%@sub_count = driver.list_subs[0].count%>
     <tr>
       <td>Driver Name: <%=driver.name%> </td>
-      <td><%=driver.list_subs[0][0]%> </td>
-      <td><%=driver.list_subs[0][1]%></td>
+        <%count = 0%>
+        <% while count < @sub_count do%>
+          <td><%=driver.list_subs[0][count]%> </td>
+          <%count += 1%>
+        <%end%>
       <td>Total Tags: <%=driver.list_subs[1]%></td>
     </tr>
   <%end%>
