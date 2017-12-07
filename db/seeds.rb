@@ -73,25 +73,35 @@ csv.each do |row|
         puts "word was found"
       else
         Word.create!(name: word)
+        puts "word was created"
       end
     end
 
   subs.each do |i|
+    puts "sub.each"
     @new_sub = SubDriver.find_by(name: i.downcase.strip)
     if @new_sub == nil
       @sub_driver = SubDriver.create!(name: i.downcase.strip, driver: work_life)
-       @new_join = CommentSubJoin.create!(comment: @comment, sub_driver: @sub_driver)
-      puts 'I made a new comment sub join with'
-      puts @comment
-      puts @sub_driver
+      @new_join = CommentSubJoin.create!(comment: @comment, sub_driver: @sub_driver)
       @count += 1
     else
       CommentSubJoin.create!(comment: @comment, sub_driver: @new_sub)
       @count+= 1
     end
 
+    @words_array.each do |word|
+      puts @sub_driver
+        @selected_word = Word.find_by(name: word)
+        if @new_sub
+          SubWordJoin.create!(sub_driver: @new_sub, word: @selected_word )
+        else
+          SubWordJoin.create!(sub_driver: @sub_driver, word: @selected_word )
+        end
+      end
+
   end
 
+  @comment.update_attribute(:tagged, true)
 
 end
 puts @count
