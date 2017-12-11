@@ -55,53 +55,54 @@ coworkers = Driver.create!(name: "Team's Work")
 # comment_9 = Comment.create!(comment_text: "Not at All, No one is doing the job like thy suppose to! How is it possible Ohrid  CS team to have 3to 5 times less answered calls more than any one from Diber! Dont they get paid the same ...?How is it possible for me to have 90 Answered calls and them 15-20 tops! Taking brakes longer that they suppose to! For me ... I can care less , i have to deal with it 30 days and im out , but the rest of the team gets demotivated and its not fear!  Work for what you get paid!" ,driver: coworkers ,team:t1c2 )
 
 
+csv_list = ['Balance_seed.csv', 'colleagues_seed.csv', 'environment_seed.csv', 'role_seed.csv']
 
-csv_text = File.read(Rails.root.join('lib', 'seeds', 'Balance_seed.csv'))
-# puts csv_text
+csv_list.each do |csv|
+  puts csv
+  csv_text = File.read(Rails.root.join('lib', 'seeds', csv))
+  # puts csv_text
 
-csv = CSV.parse(csv_text, :headers => false, :encoding => 'ISO-8859-1')
-@count = 0
-csv.each do |row|
+  csv = CSV.parse(csv_text, :headers => false, :encoding => 'ISO-8859-1')
+  @count = 0
+  csv.each do |row|
 
-  subs = row[1].split(',')
+    subs = row[1].split(',')
 
-  @comment = Comment.create!(comment_text: row[0] ,driver: work_life, team: t0c0 )
+    @comment = Comment.create!(comment_text: row[0] ,driver: work_life, team: t0c0 )
+    puts row[0]
 
-  @words_array = row[0].split(/\W+/)
-    @words_array.each do |word|
-      if Word.find_by(name: word)
-        puts "word was found"
-      else
-        Word.create!(name: word)
-        puts "word was created"
-      end
-    end
-
-  subs.each do |i|
-    puts "sub.each"
-    @new_sub = SubDriver.find_by(name: i.downcase.strip)
-    if @new_sub == nil
-      @sub_driver = SubDriver.create!(name: i.downcase.strip, driver: work_life)
-      @new_join = CommentSubJoin.create!(comment: @comment, sub_driver: @sub_driver)
-      @count += 1
-    else
-      CommentSubJoin.create!(comment: @comment, sub_driver: @new_sub)
-      @count+= 1
-    end
-
-    @words_array.each do |word|
-      puts @sub_driver
-        @selected_word = Word.find_by(name: word)
-        if @new_sub
-          SubWordJoin.create!(sub_driver: @new_sub, word: @selected_word )
+    @words_array = row[0].split(/\W+/)
+      @words_array.each do |word|
+        if Word.find_by(name: word)
         else
-          SubWordJoin.create!(sub_driver: @sub_driver, word: @selected_word )
+          Word.create!(name: word)
         end
       end
 
+    subs.each do |i|
+      @new_sub = SubDriver.find_by(name: i.downcase.strip)
+      if @new_sub == nil
+        @sub_driver = SubDriver.create!(name: i.downcase.strip, driver: work_life)
+        @new_join = CommentSubJoin.create!(comment: @comment, sub_driver: @sub_driver)
+        @count += 1
+      else
+        CommentSubJoin.create!(comment: @comment, sub_driver: @new_sub)
+        @count+= 1
+      end
+
+      @words_array.each do |word|
+          @selected_word = Word.find_by(name: word)
+          if @new_sub
+            SubWordJoin.create!(sub_driver: @new_sub, word: @selected_word )
+          else
+            SubWordJoin.create!(sub_driver: @sub_driver, word: @selected_word )
+          end
+        end
+
+    end
+
+    @comment.update_attribute(:tagged, true)
+
   end
-
-  @comment.update_attribute(:tagged, true)
-
 end
 puts @count
