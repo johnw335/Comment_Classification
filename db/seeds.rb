@@ -56,8 +56,9 @@ coworkers = Driver.create!(name: "Team's Work")
 
 
 csv_list = ['Balance_seed.csv', 'colleagues_seed.csv', 'environment_seed.csv', 'role_seed.csv']
-
+driver_count = 0
 csv_list.each do |csv|
+  driver_list = [work_life, coworkers, workplace, roles]
   puts csv
   csv_text = File.read(Rails.root.join('lib', 'seeds', csv))
   # puts csv_text
@@ -68,21 +69,21 @@ csv_list.each do |csv|
 
     subs = row[1].split(',')
 
-    @comment = Comment.create!(comment_text: row[0] ,driver: work_life, team: t0c0 )
+    @comment = Comment.create!(comment_text: row[0] ,driver: driver_list[driver_count], team: t0c0 )
     puts row[0]
 
     @words_array = row[0].split(/\W+/)
       @words_array.each do |word|
-        if Word.find_by(name: word)
+        if Word.find_by(name: word.downcase.strip)
         else
-          Word.create!(name: word)
+          Word.create!(name: word.downcase.strip)
         end
       end
 
     subs.each do |i|
       @new_sub = SubDriver.find_by(name: i.downcase.strip)
       if @new_sub == nil
-        @sub_driver = SubDriver.create!(name: i.downcase.strip, driver: work_life)
+        @sub_driver = SubDriver.create!(name: i.downcase.strip, driver: driver_list[driver_count])
         @new_join = CommentSubJoin.create!(comment: @comment, sub_driver: @sub_driver)
         @count += 1
       else
@@ -91,7 +92,7 @@ csv_list.each do |csv|
       end
 
       @words_array.each do |word|
-          @selected_word = Word.find_by(name: word)
+          @selected_word = Word.find_by(name: word.downcase.strip)
           if @new_sub
             SubWordJoin.create!(sub_driver: @new_sub, word: @selected_word )
           else
@@ -104,5 +105,6 @@ csv_list.each do |csv|
     @comment.update_attribute(:tagged, true)
 
   end
+  driver_count += 1
 end
 puts @count

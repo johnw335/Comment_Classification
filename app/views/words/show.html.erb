@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 
-<%@subs = @word.subs%>
+<%@subs_list = @word.subs_as_objects%>
 
 <%@subs = @word.percentage_each_sub%>
 <table>
@@ -20,6 +20,7 @@
     <% end %>
   </tbody>
 </table>
+<%@word.word_by_driver_and_sub(@subs_list[0].driver)%>
 
 
 

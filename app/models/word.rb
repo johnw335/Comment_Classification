@@ -13,6 +13,16 @@ class Word < ApplicationRecord
     return @sub_names
   end
 
+  def subs_as_objects
+    @word = Word.find(self.id)
+    @joins = SubWordJoin.where(word: @word)
+    @subs = []
+    @joins.each do |join|
+      @subs << join.sub_driver
+    end
+    return @subs
+  end
+
   def percentage_each_sub
     @joins = SubWordJoin.where(word: @word)
     counts = Hash.new 0
@@ -29,6 +39,22 @@ class Word < ApplicationRecord
     a_new_hash = counts.inject({}) { |h, (k, v)| h[k] = (v / @sum)*100; h }
 
     # return counts
-    return a_new_hash
+    return a_new_hash.sort_by {|_key, value| value}.reverse
+  end
+
+  def word_by_driver_and_sub(driver)
+    @word = Word.find(self.id)
+    driver_sub_hash = Hash.new
+
+    driver_hash = Hash.new
+    @subs = SubDriver.where(driver: driver)
+    @subs.each do |sub|
+      @joins = SubWordJoin.where(word: @word, sub_driver: sub )
+      @joins.each do |join|
+        puts "************"
+        puts join.sub_driver.name
+        puts join.sub_driver.driver.name
+      end
+    end
   end
 end

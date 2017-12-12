@@ -4,7 +4,7 @@ class WordsController < ApplicationController
   # GET /words
   # GET /words.json
   def index
-    @words = Word.where(ignored: false)
+    @words = Word.where(ignored: false).first(100)
     # @words = Word.all
   end
 
@@ -12,6 +12,7 @@ class WordsController < ApplicationController
   # GET /words/1.json
   def show
     @word = Word.find(params[:id])
+
   end
 
   # GET /words/new
