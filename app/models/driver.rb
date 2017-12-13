@@ -22,4 +22,18 @@ class Driver < ApplicationRecord
     return @sub_sorted, @sub_count
   end
 
+  #given a word, what percentage of that words usage is attched to the driver
+  def percent_of_word(word)
+    @total_count = SubWordJoin.where(word: word).count
+    puts @total_count
+    sub_count = 0
+    @sub = SubDriver.where(driver: self)
+    @sub.each do |sub|
+      sub_count += SubWordJoin.where(word: word, sub_driver: sub).count
+    end
+
+    percent = (sub_count.to_f/@total_count)*100
+    return percent.round(2)
+
+  end
 end

@@ -1,7 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-
+<h1><%=@word.name%></h1>
 <%@subs_list = @word.subs_as_objects%>
+<%@drivers = Driver.all%>
 
 <%@subs = @word.percentage_each_sub%>
 <table>
@@ -20,8 +21,15 @@
     <% end %>
   </tbody>
 </table>
-<%@word.word_by_driver_and_sub(@subs_list[0].driver)%>
+<%@drivers.each do |driver|%>
+  <%sub_hash = @word.word_by_driver_and_sub(driver)%>
+  <h1><%=driver.name%> : <%=driver.percent_of_word(@word)%>%</h1>
+  <%sub_hash.each do |sub|%>
+    <%=sub%>
+  <%end%>
+<%end%>
 
+<br>
 
 
 

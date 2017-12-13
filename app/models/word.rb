@@ -46,15 +46,20 @@ class Word < ApplicationRecord
     @word = Word.find(self.id)
     driver_sub_hash = Hash.new
 
-    driver_hash = Hash.new
+    sub_array = []
+    sub_counts = Hash.new 0
     @subs = SubDriver.where(driver: driver)
     @subs.each do |sub|
       @joins = SubWordJoin.where(word: @word, sub_driver: sub )
       @joins.each do |join|
-        puts "************"
-        puts join.sub_driver.name
-        puts join.sub_driver.driver.name
+        sub_array << join.sub_driver.name
       end
     end
+    sub_array.each do |sub|
+      sub_counts[sub] += 1
+    end
+    return sub_counts
   end
+
+
 end
