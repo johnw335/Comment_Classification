@@ -55,10 +55,13 @@ class Word < ApplicationRecord
         sub_array << join.sub_driver.name
       end
     end
+
     sub_array.each do |sub|
       sub_counts[sub] += 1
     end
-    return sub_counts
+    @sum = sub_counts.values.map.reduce(:+).to_f
+    sub_counts = sub_counts.sort_by {|_key, value| value}.reverse.first(5)
+    return sub_counts, @sum
   end
 
 
