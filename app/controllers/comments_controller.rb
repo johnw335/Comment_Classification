@@ -6,12 +6,16 @@ class CommentsController < ApplicationController
   def index
     @comments = Comment.where(tagged: false)
     @first_comment = @comments.first
-    @first_comment_driver = @first_comment.driver
-    @first_comment_driver_name = @first_comment.driver.name
-    @related_subs = SubDriver.where(driver: @first_comment_driver)
+    if @first_comment
+      @first_comment_driver = @first_comment.driver
+      @first_comment_driver_name = @first_comment.driver.name
+      @related_subs = SubDriver.where(driver: @first_comment_driver)
 
-    @selected_driver_subs_name = []
-    @subs_by_driver = SubDriver.where(driver: @first_comment_driver)
+      @selected_driver_subs_name = []
+      @subs_by_driver = SubDriver.where(driver: @first_comment_driver)
+    else
+      @first_comment = nil
+    end
 
 
 

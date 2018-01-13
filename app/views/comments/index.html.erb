@@ -9,34 +9,46 @@
     </tr>
   </thead>
 
-  <h2><%=@first_comment.comment_text%></h2>
-    <tr>
-      <td>Driver: <%=@first_comment.driver.name%></td>
-      <td>Company: <%=@first_comment.team.company.name%></td>
-    </tr>
+  <%if @first_comment != nil%>
+    <h2><%=@first_comment.comment_text%></h2>
+      <tr>
+        <td>Driver: <%=@first_comment.driver.name%></td>
+        <td>Company: <%=@first_comment.team.company.name%></td>
+      </tr>
 
 
-    <%= form_tag('comment_sub_joins', method: "post") do %>
-      <%@related_subs.each do |sub|%>
-        <%= check_box_tag(sub.name) %>
-        <%=label_tag(:q, sub.name)%>
-      <%end%>
-        <%= check_box_tag(:other) %>
-        <%=label_tag(:q, 'Other')%>
-        <%= hidden_field_tag :comment, @first_comment.id %>
-      <%= submit_tag("Tag Sub Drivers") %>
-    <% end %>
+      <%= form_tag('comment_sub_joins', method: "post") do %>
+        <%@related_subs.each do |sub|%>
+          <%= check_box_tag(sub.name) %>
+          <%=label_tag(:q, sub.name)%>
+        <%end%>
+          <%= check_box_tag(:other) %>
+          <%=label_tag(:q, 'Other')%>
+          <%= hidden_field_tag :comment, @first_comment.id %>
+        <%= submit_tag("Tag Sub Drivers") %>
+      <% end %>
 
-</table>
+  </table>
 
 
-<h1>Top Comment Driver <%=@first_comment_driver_name%></h1>
-<h1>Sub-Drivers </h1>
-  <%=@subs_by_driver.each do |sub|%>
-    <tr>
-      <td><%=sub.name%></td>
-    </tr>
-  <% end %>
+  <h1>Top Comment Driver <%=@first_comment_driver_name%></h1>
+
+  <%end%>
+
+  <h1>Prediction</h1>
+  <%@first_comment.all_words.each do |word|%>
+    <%if word.word_exists_in_db == true && word.ignored == false%>
+      <%=word.name%>
+      <%=word.percentage_subs_given_driver(@first_comment.driver).flatten%>
+    <%else%>
+      <%=word.name%> : Ignored
+    <%end%>
+
+    <br>
+  <%end%>
+
+  <h1>Predictions 2</h1>
+  <%=@first_comment.predict_sentence(@first_comment.driver)%>
 
 <br>
 <%= link_to 'Home', '/' %>
