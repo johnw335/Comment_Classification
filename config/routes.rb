@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   resources :dashboard
   resources :drivers
   resources :sub_drivers
+  namespace :inputs do
+    get 'index'
+    get 'results'
+  end
 
 
   get 'welcome/index'

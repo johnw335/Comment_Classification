@@ -1,0 +1,15 @@
+<h1>Input New Comment</h1>
+
+
+<%= form_tag("/inputs/results", method: "get") do %>
+  <%= label_tag(:q, "Input Comment:") %>
+  <%= text_field_tag(:comment) %>
+  <br>
+  <%@drivers.each do |driver|%>
+      <%= check_box_tag(:driver, driver.name) %>
+      <%=label_tag(:driver, driver.name)%>
+  <%end%>
+  <%= submit_tag("Predict") %>
+<% end %>
+
+<%= link_to 'Home', '/' %>
