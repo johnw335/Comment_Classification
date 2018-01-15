@@ -16,7 +16,6 @@
         <td>Company: <%=@first_comment.team.company.name%></td>
       </tr>
 
-
       <%= form_tag('comment_sub_joins', method: "post") do %>
         <%@related_subs.each do |sub|%>
           <%= check_box_tag(sub.name) %>

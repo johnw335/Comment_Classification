@@ -95,5 +95,45 @@ class Word < ApplicationRecord
     return sub_counts, @sum
   end
 
+  def percentage_driver_when_general
+    @word = Word.find(self.id)
+    @general = Driver.find_by(name: 'General')
+    @drivers_list = Driver.all
+    @drivers_list = @drivers_list - [@general]
+
+
+    @joins = SubWordJoin.where(word: @word)
+    counts = Hash.new 0
+    @sub_names = []
+    @joins.each do |join|
+      @sub_names << join.sub_driver
+    end
+
+    @sub_names.each do |sub|
+      counts[sub] += 1
+    end
+    @sum = counts.values.map.reduce(:+).to_f
+    a_new_hash = counts.inject({}) { |h, (k, v)| h[k] = (v / @sum)*100; h }
+
+    drivers_list = []
+    subs_hash = a_new_hash.sort_by {|_key, value| value}.reverse
+    subs_hash.each do |sub|
+      drivers_list << sub[0].driver.name
+    end
+
+    counts_2 = Hash.new 0
+    drivers_list.each do |sub|
+      counts_2[sub] += 1
+    end
+
+    @sum = counts_2.values.map.reduce(:+).to_f
+    a_new_hash = counts_2.inject({}) { |h, (k, v)| h[k] = (v / @sum)*100; h }
+    puts "**********************"
+    puts a_new_hash
+
+    return a_new_hash.sort_by {|_key, value| value}.reverse.first(3)
+
+  end
+
 
 end
