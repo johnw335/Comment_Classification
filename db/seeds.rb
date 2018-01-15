@@ -26,6 +26,7 @@ workplace = Driver.create!(name: "Workplace")
 roles = Driver.create!(name: "Roles and Responsibilities")
 management = Driver.create!(name: "Management")
 coworkers = Driver.create!(name: "Team's Work")
+general = Driver.create!(name: 'General')
 
 work_load = SubDriver.create!(name: "Work Load", driver: work_life)
 scheduling = SubDriver.create!(name: "Scheduling", driver: work_life)
@@ -41,6 +42,11 @@ happy_manager = SubDriver.create!(name: "Happy with Manager", driver: management
 
 wants_responsibilities = SubDriver.create!(name: "Wants More Responsibilities", driver: roles)
 not_defined = SubDriver.create!(name: "Role Not Well Defined", driver: roles)
+
+comment_00 = Comment.create!(comment_text: "we are understaffed and are behind. we need more help. management already knows this, now they need to act.", driver: general, team: t0c0)
+comment_01 = Comment.create!(comment_text:"How come the 3rd floor doesn't get speakers in the bathroom? Also - it shouldn't be warmer outside than it is inside it's WINTER." , driver: general, team: t0c0)
+comment_02 = Comment.create!(comment_text:"Feel creatively unfulfilled. It's a stock footage clipart factory. Company structure and organization is poor at best. Getting tired of working for a company that is just barely grasping how to put together a basic cohesive ad campaign. Looking for inspiration. Having trouble finding it." , driver: general, team: t0c0)
+
 
 comment_0 = Comment.create!(comment_text: "I spend loads of time at work and get home shattered every day." ,driver: work_life ,team: t0c0 )
 comment_1 = Comment.create!(comment_text: "Last week before the break does not look as crazy and we are wrapping up few lose ends. I am optimistic and looking forward towards the break!" ,driver: work_life,team: t1c0 )

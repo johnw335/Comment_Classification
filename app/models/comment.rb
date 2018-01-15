@@ -67,6 +67,7 @@ class Comment < ApplicationRecord
   end
 
 
+
   def predict_new(driver)
     comment = self
     total_subs_with_percents = []
@@ -78,6 +79,29 @@ class Comment < ApplicationRecord
 
     counts = Hash.new 0
     total_subs_with_percents.flatten(1).each do |sub|
+      counts[sub[0]] += sub[1]
+    end
+    @sum = counts.values.map.reduce(:+).to_f
+    a_new_hash = counts.inject({}) { |h, (k, v)| h[k] = (v / @sum)*100; h }
+    return a_new_hash.sort_by {|_key, value| value}.reverse.first(3)
+  end
+
+  def predict_driver_when_general
+    comment = self
+    total_drivers_with_percentage = []
+    comment.all_words_new.each do |word|
+      if word.word_exists_in_db == true && word.ignored == false
+        total_drivers_with_percentage << word.percentage_driver_when_general
+      end
+
+    end
+    # puts "total driver with percantage !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    # puts total_drivers_with_percentage
+    # puts "end of total driver with percantage"
+    # return total_drivers_with_percentage.sort_by {|_key, value| value}.reverse.first(3)
+
+    counts = Hash.new 0
+    total_drivers_with_percentage.flatten(1).each do |sub|
       counts[sub[0]] += sub[1]
     end
     @sum = counts.values.map.reduce(:+).to_f

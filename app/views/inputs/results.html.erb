@@ -1,4 +1,11 @@
 <h2><%=@comment.comment_text%></h2>
-  <h2>Predictions 2</h2>
-
+  <h2>Predictions</h2>
+  <p>When General</p>
+  <%=@comment.predict_driver_when_general%>
+  <br>
+  <p>predict normal</p>
   <%=@comment.predict_new(@driver)%>
+
+<br>
+<%= link_to 'Home', '/' %>
+ <%= link_to "Try Out New Comment", '/inputs/index'%>

@@ -6,6 +6,8 @@ class CommentsController < ApplicationController
   def index
     @comments = Comment.where(tagged: false)
     @first_comment = @comments.first
+    @general = Driver.find_by(name: 'General')
+    puts @general
     if @first_comment
       @first_comment_driver = @first_comment.driver
       @first_comment_driver_name = @first_comment.driver.name
