@@ -1,10 +1,10 @@
 <h2><%=@comment.comment_text%></h2>
   <h2>Predictions</h2>
-  <p>When General</p>
-  <%=@comment.predict_driver_when_general%>
-  <br>
-  <p>predict normal</p>
-  <%=@comment.predict_new(@driver)%>
+  <%if @comment.driver == @general%>
+    <%=@comment.predict_driver_when_general%>
+  <%else%>
+    <%=@comment.predict_new(@driver)%>
+  <%end%>
 
 <br>
 <%= link_to 'Home', '/' %>

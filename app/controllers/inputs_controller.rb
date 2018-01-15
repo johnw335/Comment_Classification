@@ -14,6 +14,7 @@ class InputsController < ApplicationController
     puts params
     puts params[:comment]
     puts params[:driver]
+    @general = Driver.find_by(name: 'General')
     @driver = Driver.find_by(name: params[:driver])
     @comment = Comment.new(comment_text: params[:comment], driver: @driver, team: Team.first)
     puts "comment ID"

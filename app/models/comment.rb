@@ -95,10 +95,6 @@ class Comment < ApplicationRecord
       end
 
     end
-    # puts "total driver with percantage !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-    # puts total_drivers_with_percentage
-    # puts "end of total driver with percantage"
-    # return total_drivers_with_percentage.sort_by {|_key, value| value}.reverse.first(3)
 
     counts = Hash.new 0
     total_drivers_with_percentage.flatten(1).each do |sub|
