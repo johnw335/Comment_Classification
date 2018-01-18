@@ -28,20 +28,20 @@ management = Driver.create!(name: "Management")
 coworkers = Driver.create!(name: "Team's Work")
 general = Driver.create!(name: 'General')
 
-work_load = SubDriver.create!(name: "Work Load", driver: work_life)
-scheduling = SubDriver.create!(name: "Scheduling", driver: work_life)
+work_load = SubDriver.create!(name: "work load", driver: work_life)
+scheduling = SubDriver.create!(name: "scheduling", driver: work_life)
 
-happy_team = SubDriver.create!(name: "Happy with team", driver: coworkers)
-communication = SubDriver.create!(name: "Communication", driver: coworkers)
+happy_team = SubDriver.create!(name: "happy with team", driver: coworkers)
+communication = SubDriver.create!(name: "communication", driver: coworkers)
 
-noise = SubDriver.create!(name: "Noise", driver: workplace)
-office_layout = SubDriver.create!(name: "Office Layout", driver: workplace)
+noise = SubDriver.create!(name: "noise", driver: workplace)
+office_layout = SubDriver.create!(name: "office layout", driver: workplace)
 
-unclear_objectives = SubDriver.create!(name: "Unclear Objectives", driver: management)
-happy_manager = SubDriver.create!(name: "Happy with Manager", driver: management)
+unclear_objectives = SubDriver.create!(name: "unclear objectives", driver: management)
+happy_manager = SubDriver.create!(name: "happy with manager", driver: management)
 
-wants_responsibilities = SubDriver.create!(name: "Wants More Responsibilities", driver: roles)
-not_defined = SubDriver.create!(name: "Role Not Well Defined", driver: roles)
+wants_responsibilities = SubDriver.create!(name: "wants more responsibilities", driver: roles)
+not_defined = SubDriver.create!(name: "role not well defined", driver: roles)
 
 comment_00 = Comment.create!(comment_text: "we are understaffed and are behind. we need more help. management already knows this, now they need to act.", driver: general, team: t0c0)
 comment_01 = Comment.create!(comment_text:"How come the 3rd floor doesn't get speakers in the bathroom? Also - it shouldn't be warmer outside than it is inside it's WINTER." , driver: general, team: t0c0)
@@ -114,3 +114,49 @@ csv_list.each do |csv|
   driver_count += 1
 end
 puts @count
+
+
+#management CSV Debugging code
+
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'management_seed.csv'))
+csv = CSV.parse(csv_text, :headers => false, :encoding => 'ISO-8859-1')
+
+csv.each do |row|
+    subs = row[1].split(',')
+
+    @comment = Comment.create!(comment_text: row[0] ,driver: management, team: t0c0 )
+    puts row[0]
+
+    @words_array = row[0].split(/\W+/)
+      @words_array.each do |word|
+        if Word.find_by(name: word.downcase.strip)
+        else
+          Word.create!(name: word.downcase.strip)
+        end
+      end
+
+    subs.each do |i|
+      @new_sub = SubDriver.find_by(name: i.downcase.strip)
+      if @new_sub == nil
+        @sub_driver = SubDriver.create!(name: i.downcase.strip, driver: management)
+        @new_join = CommentSubJoin.create!(comment: @comment, sub_driver: @sub_driver)
+        @count += 1
+      else
+        CommentSubJoin.create!(comment: @comment, sub_driver: @new_sub)
+        @count+= 1
+      end
+
+      @words_array.each do |word|
+          @selected_word = Word.find_by(name: word.downcase.strip)
+          if @new_sub
+            SubWordJoin.create!(sub_driver: @new_sub, word: @selected_word )
+          else
+            SubWordJoin.create!(sub_driver: @sub_driver, word: @selected_word )
+          end
+        end
+
+    end
+
+    @comment.update_attribute(:tagged, true)
+
+  end
