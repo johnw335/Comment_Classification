@@ -6,7 +6,7 @@
   <%= text_field_tag(:comment) %>
   <br>
   <%@drivers.each do |driver|%>
-      <%= check_box_tag(:driver, driver.name) %>
+      <%= radio_button_tag(:driver, driver.name) %>
       <%=label_tag(:driver, driver.name)%>
   <%end%>
   <%= submit_tag("Predict") %>
