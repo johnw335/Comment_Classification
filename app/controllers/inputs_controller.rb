@@ -1,5 +1,7 @@
 class InputsController < ApplicationController
 
+  respond_to :html, :json
+
   def index
     @drivers = Driver.all
   end
@@ -19,6 +21,17 @@ class InputsController < ApplicationController
     @comment = Comment.new(comment_text: params[:comment], driver: @driver, team: Team.first)
     puts "comment ID"
     puts @comment
+  end
+
+  def api_test
+    puts "I MADE IT HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+
+
+    respond_to do |format|
+      puts 'responding !!!!'
+      msg = { :status => "ok", :message => "Success!", :html => "<b>...</b>" }
+      format.json  { render :json => msg }
+   end
   end
 
 end
