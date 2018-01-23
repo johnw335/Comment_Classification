@@ -17,7 +17,8 @@ class CommentsController < ApplicationController
       @subs_by_driver = SubDriver.where(driver: @first_comment_driver)
     elsif @first_comment && @first_comment.driver == @general
       @related_subs = SubDriver.all
-
+      @drivers = Driver.all
+      @drivers = @drivers  - [@general]
     else
       @first_comment = nil
     end

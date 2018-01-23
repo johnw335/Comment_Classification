@@ -95,7 +95,9 @@ class Comment < ApplicationRecord
       end
 
     end
-
+    puts "******************!!!!!!!!!!!!"
+    puts total_drivers_with_percentage
+    puts "******************!!!!!!!!!!!!"
     counts = Hash.new 0
     total_drivers_with_percentage.flatten(1).each do |sub|
       counts[sub[0]] += sub[1]

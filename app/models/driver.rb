@@ -2,6 +2,7 @@ class Driver < ApplicationRecord
   has_many :comments
   has_many :sub_drivers
 
+  #poorly named but im afriad to change it because I don't knwo where all it is used
   def list_subs
     @sub = SubDriver.where(driver: self)
     @sub_list =[]
@@ -35,5 +36,10 @@ class Driver < ApplicationRecord
     percent = (sub_count.to_f/@total_count)*100
     return percent.round(2)
 
+  end
+
+  def sub_array
+    @subs = SubDriver.where(driver: self)
+    return @subs
   end
 end

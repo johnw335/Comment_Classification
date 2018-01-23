@@ -16,16 +16,34 @@
         <td>Company: <%=@first_comment.team.company.name%></td>
       </tr>
 
-      <%= form_tag('comment_sub_joins', method: "post") do %>
-        <%@related_subs.each do |sub|%>
-          <%= check_box_tag(sub.name) %>
-          <%=label_tag(:q, sub.name)%>
+      <%if @first_comment.driver == @general%>
+        <%= form_tag('comment_sub_joins', method: "post") do %>
+        <%@drivers.each do |driver|%>
+          <h3><%=driver.name%></h3>
+          <%sub_list = driver.sub_array%>
+          <%sub_list.each do |sub|%>
+            <%= check_box_tag(sub.name) %>
+            <%=label_tag(:q, sub.name)%>
+          <%end%>
         <%end%>
-          <%= check_box_tag(:other) %>
-          <%=label_tag(:q, 'Other')%>
-          <%= hidden_field_tag :comment, @first_comment.id %>
-        <%= submit_tag("Tag Sub Drivers") %>
-      <% end %>
+          <h3>Other</h3>
+            <%= check_box_tag(:other) %>
+            <%=label_tag(:q, 'Other')%>
+            <%= hidden_field_tag :comment, @first_comment.id %>
+          <%= submit_tag("Tag Sub Drivers") %>
+        <% end %>
+      <%else%>
+        <%= form_tag('comment_sub_joins', method: "post") do %>
+          <%@related_subs.each do |sub|%>
+            <%= check_box_tag(sub.name) %>
+            <%=label_tag(:q, sub.name)%>
+          <%end%>
+            <%= check_box_tag(:other) %>
+            <%=label_tag(:q, 'Other')%>
+            <%= hidden_field_tag :comment, @first_comment.id %>
+          <%= submit_tag("Tag Sub Drivers") %>
+        <% end %>
+      <%end%>
 
   </table>
 

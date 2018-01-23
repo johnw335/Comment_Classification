@@ -128,8 +128,6 @@ class Word < ApplicationRecord
 
     @sum = counts_2.values.map.reduce(:+).to_f
     a_new_hash = counts_2.inject({}) { |h, (k, v)| h[k] = (v / @sum)*100; h }
-    puts "**********************"
-    puts a_new_hash
 
     return a_new_hash.sort_by {|_key, value| value}.reverse.first(3)
 
