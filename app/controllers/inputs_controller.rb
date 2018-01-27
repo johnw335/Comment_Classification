@@ -1,6 +1,12 @@
 class InputsController < ApplicationController
 
   respond_to :html, :json
+  # before_action :cors_set_access_control_headers
+
+
+  # def cors_set_access_control_headers
+  #     headers['Access-Control-Allow-Origin'] = '*'
+  # end
 
   def index
     @drivers = Driver.all
@@ -24,14 +30,15 @@ class InputsController < ApplicationController
   end
 
   def api_test
-    puts "I MADE IT HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-
 
     respond_to do |format|
-      puts 'responding !!!!'
-      msg = { :status => "ok", :message => "Success!", :html => "<b>...</b>" }
-      format.json  { render :json => msg }
-   end
+      format.js do
+        puts 'responding !!!!'
+        msg = { :status => '200', :message => "Success!!!!!!!!"}
+        # format.json  { render json: msg, status: 'ok' }
+        render :json => msg
+      end
+    end
   end
 
 end
