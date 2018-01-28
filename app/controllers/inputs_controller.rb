@@ -30,11 +30,19 @@ class InputsController < ApplicationController
   end
 
   def api_test
-
+    @comment_text = params[:comment]
+    @driver = Driver.find_by(name: params[:driver])
+    if @driver
+      puts "I found the driver"
+    end
+    @comment = Comment.new(comment_text: @comment_text, driver: @driver, team: Team.first)
+    prediction = @comment.predict_new(@driver)
+    # puts "Prediction!!!!!!"
+    # puts prediction
     respond_to do |format|
       format.js do
         puts 'responding !!!!'
-        msg = { :status => '200', :message => "Success!!!!!!!!"}
+        msg = { :status => '200', :message => prediction}
         # format.json  { render json: msg, status: 'ok' }
         render :json => msg
       end
