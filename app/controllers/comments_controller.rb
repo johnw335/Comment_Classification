@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
   # GET /comments.json
   def index
     @comments = Comment.where(tagged: false)
-    @first_comment = @comments.first
+    @first_comment = @comments.sample
     @general = Driver.find_by(name: 'General')
 
     if @first_comment && @first_comment.driver != @general

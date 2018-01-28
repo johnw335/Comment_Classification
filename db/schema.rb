@@ -12,13 +12,16 @@
 
 ActiveRecord::Schema.define(version: 20171129205925) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "comment_sub_joins", force: :cascade do |t|
     t.integer  "sub_driver_id"
     t.integer  "comment_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.index ["comment_id"], name: "index_comment_sub_joins_on_comment_id"
-    t.index ["sub_driver_id"], name: "index_comment_sub_joins_on_sub_driver_id"
+    t.index ["comment_id"], name: "index_comment_sub_joins_on_comment_id", using: :btree
+    t.index ["sub_driver_id"], name: "index_comment_sub_joins_on_sub_driver_id", using: :btree
   end
 
   create_table "comment_word_joins", force: :cascade do |t|
@@ -26,8 +29,8 @@ ActiveRecord::Schema.define(version: 20171129205925) do
     t.integer  "word_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["comment_id"], name: "index_comment_word_joins_on_comment_id"
-    t.index ["word_id"], name: "index_comment_word_joins_on_word_id"
+    t.index ["comment_id"], name: "index_comment_word_joins_on_comment_id", using: :btree
+    t.index ["word_id"], name: "index_comment_word_joins_on_word_id", using: :btree
   end
 
   create_table "comments", force: :cascade do |t|
@@ -37,8 +40,8 @@ ActiveRecord::Schema.define(version: 20171129205925) do
     t.boolean  "tagged",       default: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
-    t.index ["driver_id"], name: "index_comments_on_driver_id"
-    t.index ["team_id"], name: "index_comments_on_team_id"
+    t.index ["driver_id"], name: "index_comments_on_driver_id", using: :btree
+    t.index ["team_id"], name: "index_comments_on_team_id", using: :btree
   end
 
   create_table "companies", force: :cascade do |t|
@@ -58,7 +61,7 @@ ActiveRecord::Schema.define(version: 20171129205925) do
     t.integer  "driver_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["driver_id"], name: "index_sub_drivers_on_driver_id"
+    t.index ["driver_id"], name: "index_sub_drivers_on_driver_id", using: :btree
   end
 
   create_table "sub_word_joins", force: :cascade do |t|
@@ -66,8 +69,8 @@ ActiveRecord::Schema.define(version: 20171129205925) do
     t.integer  "sub_driver_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.index ["sub_driver_id"], name: "index_sub_word_joins_on_sub_driver_id"
-    t.index ["word_id"], name: "index_sub_word_joins_on_word_id"
+    t.index ["sub_driver_id"], name: "index_sub_word_joins_on_sub_driver_id", using: :btree
+    t.index ["word_id"], name: "index_sub_word_joins_on_word_id", using: :btree
   end
 
   create_table "teams", force: :cascade do |t|
@@ -75,7 +78,7 @@ ActiveRecord::Schema.define(version: 20171129205925) do
     t.integer  "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_teams_on_company_id"
+    t.index ["company_id"], name: "index_teams_on_company_id", using: :btree
   end
 
   create_table "words", force: :cascade do |t|
