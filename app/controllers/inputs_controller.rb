@@ -32,6 +32,7 @@ class InputsController < ApplicationController
   def api_test
     @comment_text = params[:comment]
     @driver = Driver.find_by(name: params[:driver])
+    puts @driver.name
     if @driver
       puts "I found the driver"
     end
