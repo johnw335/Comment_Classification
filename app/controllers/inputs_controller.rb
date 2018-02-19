@@ -30,6 +30,7 @@ class InputsController < ApplicationController
   end
 
   def api_test
+    puts "API TESTTTTTT"
     @comment_text = params[:comment]
     @driver = Driver.find_by(name: params[:driver])
     puts @driver.name
@@ -39,7 +40,7 @@ class InputsController < ApplicationController
     @comment = Comment.new(comment_text: @comment_text, driver: @driver, team: Team.first)
     prediction = @comment.predict_new(@driver)
     # puts "Prediction!!!!!!"
-    # puts prediction
+    puts prediction
     respond_to do |format|
       format.js do
         puts 'responding !!!!'
